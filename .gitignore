@@ -1,0 +1,32 @@
+# 后端（FastAPI）相关忽略规则
+# Python 虚拟环境
+venv/
+.venv/
+
+# 日志文件
+*.log
+
+# 编译后的 Python 文件
+__pycache__/
+*.pyc
+
+# 数据库文件（如果使用 SQLite）
+*.db
+
+# 环境变量文件
+.env
+
+# 前端（Vue 3）相关忽略规则
+# 依赖目录
+node_modules/
+
+# 构建输出目录
+dist/
+
+# IDE 和编辑器相关忽略规则
+.idea/
+.vscode/
+
+# macOS 系统生成的文件
+.DS_Store
+    
