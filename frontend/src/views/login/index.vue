@@ -3,6 +3,12 @@ import { ref } from 'vue'
 
 const username = ref('')
 const pwd = ref('')
+
+// 登录
+const login = () => {
+  console.log('username', username.value)
+  console.log('pwd', pwd.value)
+}
 </script>
 
 <template>
@@ -35,6 +41,7 @@ const pwd = ref('')
         </el-button>
         <el-button
           type="primary"
+          @click="login"
         >
           Enter
         </el-button>
