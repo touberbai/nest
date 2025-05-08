@@ -1,0 +1,29 @@
+@for $i from 1 through 20 {
+  .ma-#{$i} {
+    margin: #{$i*2}px;
+  }
+  .ml-#{$i} {
+    margin-left: #{$i*2}px;
+  }
+  .mr-#{$i} {
+    margin-right: #{$i*2}px;
+  }
+  .mt-#{$i} {
+    margin-top: #{$i*2}px;
+  }
+  .mb-#{$i} {
+    margin-bottom: #{$i*2}px;
+  }
+  .mx-#{$i} {
+    margin: {
+      left: #{$i*2}px;
+      right: #{$i*2}px;
+    }
+  }
+  .my-#{$i} {
+    margin: {
+      top: #{$i*2}px;
+      bottom: #{$i*2}px;
+    }
+  }
+}

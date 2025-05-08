@@ -1,0 +1,91 @@
+// 默认过渡
+@mixin transition($time: 0.2s) {
+  transition: all $time ease-in-out;
+}
+
+// 背景图 默认居中 不重复
+@mixin background($width: 100%, $height: 100%){
+  background: {
+    size: $width, $height;
+    repeat: no-repeat;
+    position: center;
+  }
+}
+
+// placeholder
+@mixin placeholder($color:#ccc, $fontweight: normal){
+  &::-webkit-input-placeholder { /* WebKit browsers */
+    color: $color;
+    font-weight: $fontweight;
+  }
+  &::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: $color;
+    font-weight: $fontweight;
+  }
+  &:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: $color;
+    font-weight: $fontweight;
+  }
+}
+
+@mixin scrollbar {
+  /*滚动条样式*/
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+  }
+  &::-webkit-scrollbar-track {
+    // -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0);
+    border-radius: 0;
+    // background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0);
+
+  }
+}
+
+// 隐藏滚动条
+@mixin hidescrollbar {
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  &::-webkit-scrollbar {
+    width: 0 !important
+  }
+}
+
+// 多行截取
+@mixin multi_line_intercept($line:2){
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
+// 单行截取
+@mixin single_line_intercept(){
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// placeholder
+@mixin placeholder($color:#ccc, $fontweight: normal){
+  &::-webkit-input-placeholder { /* WebKit browsers */
+    color: $color;
+    font-weight: $fontweight;
+  }
+
+  &::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: $color;
+    font-weight: $fontweight;
+  }
+
+  &:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: $color;
+    font-weight: $fontweight;
+  }
+}

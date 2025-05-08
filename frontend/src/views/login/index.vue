@@ -1,0 +1,55 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const username = ref('')
+const pwd = ref('')
+</script>
+
+<template>
+<div
+  class="v_login_index d-flex align-center justify-center"
+>
+  <el-card style="max-width: 480px">
+    <template #header>
+      <div class="card-header">
+        <span>Login</span>
+      </div>
+    </template>
+    <el-input
+      class="mb-5 input"
+      v-model="username"
+      style="width: 240px"
+      placeholder="Please input"
+    />
+    <el-input
+      class="mb-5 input"
+      v-model="pwd"
+      style="width: 240px"
+      placeholder="Please input"
+      type="password"
+    />
+    <template #footer>
+      <div class="footer_wrapper d-flex justify-end">
+        <el-button>
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+        >
+          Enter
+        </el-button>
+      </div>
+    </template>
+  </el-card>
+</div>
+</template>
+
+<style scoped>
+.v_login_index {
+  width: 100%;
+  height: 100%;
+  .input {
+    width: 100%!important;
+  }
+}
+</style>

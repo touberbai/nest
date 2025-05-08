@@ -1,0 +1,71 @@
+html, body{
+  width: 100vw;
+  height: 100vh;
+  color: #333;
+  font-family: PingFangSC-Regular, PingFang SC, MicroSofy YaHei, sans-serif;
+  // font-family: 'Microsoft JhengHei';
+}
+
+// .container{
+//   width: 100%;
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   &.fluid{
+//     max-width: 100%;
+//   }
+// }
+
+
+button{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.cp{
+  cursor: pointer;
+}
+
+// 深色按钮
+.btn-dark{
+  user-select: none;
+  cursor: pointer;
+  background-color: $main_blue;
+  color:#fff;
+  text-align: center;
+  &:hover{
+    background-color: #004080;
+  }
+}
+.btn-warn{
+  @include transition;
+  user-select: none;
+  cursor: pointer;
+  background-color: #FAEDEB;
+  color: #C84B33;
+}
+// 浅色按钮
+.btn-light{
+  @include transition;
+  user-select: none;
+  cursor: pointer;
+  background-color: #e5eef6;
+  color: $main_blue;
+  text-align: center;
+  &:hover{
+    background-color: #ccdded;
+  }
+}
+
+.user-select-none{
+  user-select: none;
+  -webkit-user-select: none;
+}

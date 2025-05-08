@@ -1,0 +1,29 @@
+@for $i from 1 through 20 {
+  .pa-#{$i} {
+    padding: #{$i*2}px;
+  }
+  .pl-#{$i} {
+    padding-left: #{$i*2}px;
+  }
+  .pr-#{$i} {
+    padding-right: #{$i*2}px;
+  }
+  .pt-#{$i} {
+    padding-top: #{$i*2}px;
+  }
+  .pb-#{$i} {
+    padding-bottom: #{$i*2}px;
+  }
+  .px-#{$i} {
+    padding: {
+      left: #{$i*2}px;
+      right: #{$i*2}px;
+    }
+  }
+  .py-#{$i} {
+    padding: {
+      top: #{$i*2}px;
+      bottom: #{$i*2}px;
+    }
+  }
+}
