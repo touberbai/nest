@@ -1,10 +1,15 @@
 from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from crud.post import get_posts, create_post
-from schemas.post import Post, PostCreate
-from database.connection import get_db
+# from sqlalchemy.orm import Session
+# from crud.post import get_posts, create_post
+# from schemas.post import Post, PostCreate
+# from database.connection import get_db
 from routers import all_routers
+import logging
 app = FastAPI()
+
+# 配置日志记录
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 # 注册所有路由
