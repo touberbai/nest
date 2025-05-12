@@ -18,3 +18,17 @@ class User(UserBase):
 
     class Config:
         from_attributes = True
+    
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
+    
+class VerificationCodeRequest(BaseModel):
+    email: EmailStr
+    
+class VerificationCodeVerify(BaseModel):
+    email: EmailStr
+    code: str
