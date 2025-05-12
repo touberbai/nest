@@ -1,3 +1,10 @@
+### 启动命令
+
+```
+ uvicorn main:app --reload
+```
+
+
 ## web列表
 
 - vue3
