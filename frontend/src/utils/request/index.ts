@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // 定义基础 URL，根据实际情况修改
-const baseURL = 'https://your-api-url.com'; // 这里替换为你的实际 API 地址
+const baseURL = import.meta.env.VITE_API_BASE_URL; // 这里替换为你的实际 API 地址
 
 // 封装 POST 请求
 const post = async (params: any = {}) => {

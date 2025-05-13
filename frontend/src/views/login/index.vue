@@ -1,13 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { post } from '@/utils/request'
 
 const username = ref('')
 const pwd = ref('')
 
 // 登录
-const login = () => {
+const login = async () => {
   console.log('username', username.value)
   console.log('pwd', pwd.value)
+  const res = await post({
+    url: '/api/login',
+    data: {
+      username: "string",
+      email: "u1ser@example.com",
+      password: "string"
+    }
+  })
 }
 </script>
 
