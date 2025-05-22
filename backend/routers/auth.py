@@ -57,15 +57,21 @@ def send_verification_code(request: VerificationCodeRequest, db: Session = Depen
     user = db.query(UserModel).filter(UserModel.email == request.email).first()
     if user:
         user.verification_code = code
+        user.code_expiration_time = datetime.utcnow() + timedelta(minutes=5)  # 设置验证码 5 分钟有效期
         db.commit()
     else:
-        new_user = UserModel(email=request.email, verification_code=code)
+        new_user = UserModel(
+            email=request.email,
+            verification_code=code,
+            code_expiration_time=datetime.utcnow() + timedelta(minutes=5)  # 设置验证码 5 分钟有效期
+        )
         db.add(new_user)
         db.commit()
     if send_verification_email(request.email, code):
         return {"message": "Verification code sent successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to send verification code")
+    
 
 @router.post("/verify-verification-code")
 def verify_verification_code(request: VerificationCodeVerify, db: Session = Depends(get_db)):
@@ -83,6 +89,7 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=Token)
 def login(form_data: UserCreate, db: Session = Depends(get_db)):
+    print(form_data)
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -94,6 +101,7 @@ def login(form_data: UserCreate, db: Session = Depends(get_db)):
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
+    print(form_data)
     return {"access_token": access_token, "token_type": "bearer"}
 
 auth_router = router
