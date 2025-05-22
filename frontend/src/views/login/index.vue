@@ -24,7 +24,23 @@ const login = async () => {
 <div
   class="v_login_index d-flex align-center justify-center"
 >
-  <el-card style="max-width: 480px">
+  <v-card
+    loading
+    color="blue-grey"
+  >
+    <v-card-title
+      class="text-center"
+    >
+      LOGIN
+    </v-card-title>
+    <v-card-actions>
+      <v-btn>Click me</v-btn>
+    </v-card-actions>
+  </v-card>
+  <el-card
+    style="max-width: 480px"
+    shadow="hover"
+  >
     <template #header>
       <div class="card-header">
         <span>Login</span>
