@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Form
 from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import JWTError, jwt
@@ -14,7 +14,7 @@ router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = "your-secret-key"  # 替换为你的密钥
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 5
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
@@ -52,45 +52,47 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 @router.post("/send-verification-code")
-def send_verification_code(request: VerificationCodeRequest, db: Session = Depends(get_db)):
+def send_verification_code(email: str = Form(...), db: Session = Depends(get_db)):
     code = generate_verification_code()
-    user = db.query(UserModel).filter(UserModel.email == request.email).first()
+    user = db.query(UserModel).filter(UserModel.email == email).first()
+    # 验证码有效期5分钟
+    code_expiration_time = datetime.now().astimezone() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     if user:
         user.verification_code = code
-        user.code_expiration_time = datetime.utcnow() + timedelta(minutes=5)  # 设置验证码 5 分钟有效期
+        user.code_expiration_time = code_expiration_time
         db.commit()
     else:
-        new_user = UserModel(
-            email=request.email,
-            verification_code=code,
-            code_expiration_time=datetime.utcnow() + timedelta(minutes=5)  # 设置验证码 5 分钟有效期
-        )
+        new_user = UserModel(email=email, verification_code=code)
+        new_user.code_expiration_time = code_expiration_time
         db.add(new_user)
         db.commit()
-    if send_verification_email(request.email, code):
+    if send_verification_email(email, code):
         return {"message": "Verification code sent successfully"}
     else:
         raise HTTPException(status_code=500, detail="Failed to send verification code")
-    
 
 @router.post("/verify-verification-code")
-def verify_verification_code(request: VerificationCodeVerify, db: Session = Depends(get_db)):
-    user = db.query(UserModel).filter(UserModel.email == request.email).first()
-    if not user or user.verification_code != request.code:
+def verify_verification_code(email: str = Form(...), code: str = Form(...), db: Session = Depends(get_db)):
+    user = db.query(UserModel).filter(UserModel.email == email).first()
+    if not user or user.verification_code != code:
         raise HTTPException(status_code=400, detail="Invalid verification code")
+    user.verification_code = None
+    user.code_expiration_time = None
+    db.commit()
     return {"message": "Verification code verified successfully"}
 
 @router.post("/register")
-def register(user: UserCreate, db: Session = Depends(get_db)):
-    db_user = get_user(db, user.username)
+def register(username: str = Form(...), email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    db_user = get_user(db, username)
     if db_user:
         raise HTTPException(status_code=400, detail="Username already registered")
+    user = UserCreate(username=username, email=email, password=password)
     return create_user(db, user)
 
 @router.post("/login", response_model=Token)
-def login(form_data: UserCreate, db: Session = Depends(get_db)):
-    print(form_data)
-    user = authenticate_user(db, form_data.username, form_data.password)
+def login(username: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    user = authenticate_user(db, username, password)
+    print(username, password, db)
     if not user:
         raise HTTPException(
             status_code=401,
@@ -101,7 +103,6 @@ def login(form_data: UserCreate, db: Session = Depends(get_db)):
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
-    print(form_data)
     return {"access_token": access_token, "token_type": "bearer"}
 
 auth_router = router
