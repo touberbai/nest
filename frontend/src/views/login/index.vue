@@ -3,12 +3,18 @@ import { ref } from 'vue'
 import { post } from '@/utils/request'
 
 const username = ref('')
-const pwd = ref('')
+const email = ref('')
+const password = ref('')
+// 重复输入的密码
+const password2 = ref('')
+
+const pageMode = ref('login') // register 注册 forget 忘记密码
+
 
 // 登录
 const login = async () => {
   console.log('username', username.value)
-  console.log('pwd', pwd.value)
+  console.log('pwd', password.value)
   const res = await post({
     url: '/api/login',
     data: {
@@ -18,6 +24,10 @@ const login = async () => {
     }
   })
 }
+
+const changePageMode = (mode: string) => {
+  pageMode.value = mode
+}
 </script>
 
 <template>
@@ -26,6 +36,7 @@ const login = async () => {
 >
   <v-card
     loading
+    class="login_wrapper"
     color="blue-grey"
   >
     <v-card-title
@@ -33,11 +44,54 @@ const login = async () => {
     >
       LOGIN
     </v-card-title>
-    <v-card-actions>
-      <v-btn>Click me</v-btn>
+    <v-card-text>
+      <v-text-field
+        v-model="email"
+        label="Email"
+        outlined
+      />
+      <v-text-field
+        v-model="password"
+        label="Password"
+        outlined
+        type="password"
+      />
+      <v-text-field
+        v-show="pageMode === 'register'"
+        v-model="password2"
+        label="Password again"
+        outlined
+        type="password"
+      />
+    </v-card-text>
+    <v-card-actions
+      class="d-flex justify-space-between align-center"
+    >
+      <div
+        class="d-flex"
+      >
+        <v-btn
+          v-if="pageMode !== 'register'"
+          variant="text"
+          @click="changePageMode('register')"
+        >Register</v-btn>
+        <v-btn
+          v-if="pageMode !== 'login'"
+          variant="text"
+          @click="changePageMode('login')"
+        >Login</v-btn>
+        <v-btn
+          v-if="pageMode !== 'forget'"
+          variant="text"
+          @click="changePageMode('forget')"
+        >Forget</v-btn>
+      </div>
+
+      <v-btn>Submit</v-btn>
     </v-card-actions>
   </v-card>
   <el-card
+    v-if="0"
     style="max-width: 480px"
     shadow="hover"
   >
@@ -82,6 +136,9 @@ const login = async () => {
   height: 100%;
   .input {
     width: 100%!important;
+  }
+  .login_wrapper {
+    width: 420px;
   }
 }
 </style>

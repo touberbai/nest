@@ -4,7 +4,7 @@ import axios from 'axios';
 // const baseURL = import.meta.env.VITE_API_BASE_URL; // 这里替换为你的实际 API 地址
 
 // 封装 POST 请求
-const post = async (params: any = {}) => {
+const postJson = async (params: any = {}) => {
   const {
     url,
     data,
@@ -31,6 +31,42 @@ const post = async (params: any = {}) => {
   }
 };
 
+// 封装 POST 请求，发送 form-data 格式的数据
+const post = async (params: any = {}) => {
+  const {
+    url,
+    data,
+    config = {}
+  } = params;
+
+  const formData = new FormData();
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key]);
+    }
+  }
+
+  try {
+    const response = await axios.post(
+      url,
+      formData,
+      {
+        ...config,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          ...config.headers
+        }
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('POST form-data 请求错误:', error);
+    throw error;
+  }
+};
+
+
 export {
-  post
+  post,
+  postJson
 };
