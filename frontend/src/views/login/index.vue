@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { post } from '@/utils/request'
+// import { post } from '@/utils/request'
+import { useUserStore } from '@/stores/user';
+
+const userStore = useUserStore()
 
 const username = ref('')
 const email = ref('')
@@ -13,16 +16,22 @@ const pageMode = ref('login') // register 注册 forget 忘记密码
 
 // 登录
 const login = async () => {
-  console.log('username', username.value)
-  console.log('pwd', password.value)
-  const res = await post({
-    url: '/api/login',
-    data: {
-      username: "string",
-      email: "u1ser@example.com",
-      password: "string"
-    }
-  })
+  const res = await userStore.login(
+    email.value,
+    password.value
+  )
+  console.log(res)
+  return
+  // console.log('username', username.value)
+  // console.log('pwd', password.value)
+  // const res = await post({
+  //   url: '/api/login',
+  //   data: {
+  //     username: "string",
+  //     email: "u1ser@example.com",
+  //     password: "string"
+  //   }
+  // })
 }
 
 const changePageMode = (mode: string) => {
@@ -87,7 +96,9 @@ const changePageMode = (mode: string) => {
         >Forget</v-btn>
       </div>
 
-      <v-btn>Submit</v-btn>
+      <v-btn
+        @click="login"
+      >Submit</v-btn>
     </v-card-actions>
   </v-card>
   <el-card

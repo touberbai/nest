@@ -7,7 +7,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(255), unique=True, index=True)
-    hashed_password = Column(String(255))
+    password = Column(String(255))
     email = Column(String(255), unique=True, index=True)
     verification_code = Column(String(6))  # 用于存储验证码
     code_expiration_time = Column(DateTime)  # 用于存储验证码的过期时间

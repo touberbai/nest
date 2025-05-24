@@ -16,28 +16,30 @@ SECRET_KEY = "your-secret-key"  # 替换为你的密钥
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 5
 
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+def verify_password(plain_password, password):
+    return pwd_context.verify(plain_password, password)
 
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-def get_user(db: Session, username: str):
-    return db.query(UserModel).filter(UserModel.username == username).first()
+def get_user(db: Session, email: str):
+    return db.query(UserModel).filter(UserModel.email == email).first()
 
 def create_user(db: Session, user: UserCreate):
-    hashed_password = get_password_hash(user.password)
-    db_user = UserModel(username=user.username, hashed_password=hashed_password, email=user.email)
+    password = get_password_hash(user.password)
+    db_user = UserModel(username=user.username, password=password, email=user.email)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
 
-def authenticate_user(db: Session, username: str, password: str):
-    user = get_user(db, username)
+def authenticate_user(db: Session, email: str, password: str):
+    print('email', email)
+    user = get_user(db, email)
+    print(user, 'login', user.email, user.password)
     if not user:
         return False
-    if not verify_password(password, user.hashed_password):
+    if not verify_password(password, user.password):
         return False
     return user
 
@@ -90,9 +92,11 @@ def register(username: str = Form(...), email: str = Form(...), password: str = 
     return create_user(db, user)
 
 @router.post("/login", response_model=Token)
-def login(username: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
-    user = authenticate_user(db, username, password)
-    print(username, password, db)
+def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    password1 = get_password_hash(password)
+    print('p1', password1)
+    user = authenticate_user(db, email, password)
+    print(email, password, db, user, 'login')
     if not user:
         raise HTTPException(
             status_code=401,
@@ -101,7 +105,7 @@ def login(username: str = Form(...), password: str = Form(...), db: Session = De
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.email}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
