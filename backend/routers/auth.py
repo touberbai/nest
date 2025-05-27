@@ -109,4 +109,21 @@ def login(email: str = Form(...), password: str = Form(...), db: Session = Depen
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
+@router.post("/refresh-token")
+def refresh_token(refresh_token: str = Form(...), db: Session = Depends(get_db)):
+    try:
+        payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail="Invalid refresh token")
+        user = get_user(db, username)
+        if user is None:
+            raise HTTPException(status_code=401, detail="Invalid refresh token")
+        access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        access_token = create_access_token(
+            data={"sub": user.username}, expires_delta=access_token_expires
+        )
+        return {"access_token": access_token, "token_type": "bearer"}
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid refresh token")
 auth_router = router
