@@ -15,6 +15,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = "your-secret-key"  # 替换为你的密钥
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 5
+REFRESH_TOKEN_EXPIRE_MINUTES = timedelta(days=7)
 
 def verify_password(plain_password, password):
     return pwd_context.verify(plain_password, password)
@@ -107,7 +108,15 @@ def login(email: str = Form(...), password: str = Form(...), db: Session = Depen
     access_token = create_access_token(
         data={"sub": user.email}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    # 生成 refresh_token
+    refresh_token = create_access_token(
+        data={"sub": user.email}, expires_delta=REFRESH_TOKEN_EXPIRE_MINUTES
+    )
+    # 创建一个新对象 将access_token 和 refresh_token和user的属性合并在一个对象中返回给前端
+    
+
+
+    # return {"access_token": access_token, "refresh_token": refresh_token, "token_type": "bearer"}
 
 @router.post("/refresh-token")
 def refresh_token(refresh_token: str = Form(...), db: Session = Depends(get_db)):

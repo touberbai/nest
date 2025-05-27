@@ -12,6 +12,8 @@ class User {
   verification_code?: number
   code_expiration_time?: number
   is_active?: number
+  access_token?: string
+  refresh_token?: string
 
   constructor (params: any ) {
     this.updateData(params)

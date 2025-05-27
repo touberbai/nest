@@ -50,7 +50,19 @@ export const useUserStore = defineStore('user', () => {
 
   // 用户登录
   const login = async (email: string, password: string) => {
-    return await User.login(email, password);
+    loading.value = true;
+    try {
+      const res = await await User.login(email, password);
+      console.log(res)
+      user.value = new User(res)
+      return true
+    } catch (err: any) {
+      return false
+    } finally {
+      loading.value = false
+    }
+
+    return res
   }
   // const login = async (credentials: { username: string; password: string }) => {
     // loading.value = true;

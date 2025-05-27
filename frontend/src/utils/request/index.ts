@@ -58,6 +58,7 @@ const post = async (params: any = {}) => {
         }
       }
     );
+    console.log(response)
     return response.data;
   } catch (error) {
     console.error('POST form-data 请求错误:', error);
