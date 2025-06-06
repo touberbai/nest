@@ -4,7 +4,7 @@ from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from typing import Optional
-from schemas.user import UserCreate, User, Token, TokenData, VerificationCodeRequest, VerificationCodeVerify
+from schemas.user import UserCreate, User, Token, TokenData, VerificationCodeRequest, VerificationCodeVerify, LoginResponse
 from models.user import User as UserModel
 from database.connection import get_db
 from utils.email import generate_verification_code, send_verification_email
@@ -85,14 +85,21 @@ def verify_verification_code(email: str = Form(...), code: str = Form(...), db: 
     return {"message": "Verification code verified successfully"}
 
 @router.post("/register")
-def register(username: str = Form(...), email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
-    db_user = get_user(db, username)
-    if db_user:
+def register(
+    username: str = Form(...),
+    email: str = Form(...),
+    password: str = Form(...),
+    verification_code: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    # 检查用户名是否已存在
+    db_user_by_username = get_user_by_username(db, username)
+    if db_user_by_username:
         raise HTTPException(status_code=400, detail="Username already registered")
     user = UserCreate(username=username, email=email, password=password)
     return create_user(db, user)
 
-@router.post("/login", response_model=Token)
+@router.post("/login", response_model=LoginResponse)
 def login(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
     password1 = get_password_hash(password)
     print('p1', password1)
@@ -112,6 +119,18 @@ def login(email: str = Form(...), password: str = Form(...), db: Session = Depen
     refresh_token = create_access_token(
         data={"sub": user.email}, expires_delta=REFRESH_TOKEN_EXPIRE_MINUTES
     )
+    
+    token = Token(access_token=access_token, refresh_token=refresh_token, token_type="bearer")
+    user_info = User(
+        id=user.id,
+        username=user.username,
+        email=user.email,
+        created_at=user.created_at,
+        updated_at=user.updated_at,
+        is_active=user.is_active,
+        # role=user.role
+    )
+    return LoginResponse(token=token, user=user_info)
     # 创建一个新对象 将access_token 和 refresh_token和user的属性合并在一个对象中返回给前端
     
 

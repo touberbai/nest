@@ -14,6 +14,18 @@ const password2 = ref('')
 const pageMode = ref('login') // register 注册 forget 忘记密码
 
 
+// 注册
+const register = async () => {
+  const res = await userStore.register(
+    email.value,
+    password.value
+  );
+  if (res) {
+    console.log('注册成功');
+    changePageMode('login');
+  }
+};
+
 // 登录
 const login = async () => {
   const res = await userStore.login(
@@ -58,12 +70,16 @@ const changePageMode = (mode: string) => {
         v-model="email"
         label="Email"
         outlined
-      />
+        :rules="[
+          (v) => !!v || '请输入邮箱',
+          (v) => (v === 'admin' || /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v)) || '请输入有效的邮箱地址'
+        ]"/>
       <v-text-field
         v-model="password"
         label="Password"
         outlined
         type="password"
+        :rules="[(v) => !!v || '请输入密码', (v) => v.length >= 6 || '密码至少需要6个字符']"
       />
       <v-text-field
         v-show="pageMode === 'register'"
@@ -71,6 +87,7 @@ const changePageMode = (mode: string) => {
         label="Password again"
         outlined
         type="password"
+        :rules="[(v) => !!v || '请再次输入密码', (v) => v === password || '两次输入的密码不一致']"
       />
     </v-card-text>
     <v-card-actions
@@ -97,8 +114,8 @@ const changePageMode = (mode: string) => {
       </div>
 
       <v-btn
-        @click="login"
-      >Submit</v-btn>
+        @click="pageMode === 'register' ? register() : login()"
+      >{{ pageMode === 'register' ? '注册' : '登录' }}</v-btn>
     </v-card-actions>
   </v-card>
   <el-card

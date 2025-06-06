@@ -5,17 +5,17 @@ import {
 import { post } from '@/utils/request'
 
 class User {
-  id: number
-  username: string
+  id: number = 0
+  username: string = ''
   // password
-  email: string
+  email: string = ''
   verification_code?: number
   code_expiration_time?: number
   is_active?: number
   access_token?: string
   refresh_token?: string
 
-  constructor (params: any ) {
+  constructor (params: any = {} ) {
     this.updateData(params)
   }
 
@@ -23,9 +23,17 @@ class User {
     updateModel(params, this)
   }
 
-  regist = async () => {
-
+  static regist = async (email: string, password: string) => {
+    const res = await post({
+      url: '/api/register',
+      data: {
+        email,
+        password
+      }
+    });
+    return res;
   }
+
 
   static login = async (email: string, password: string) => {
     const res = await post({

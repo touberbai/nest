@@ -1,15 +1,18 @@
 import { defineStore } from 'pinia';
 import { ref, computed, watch } from 'vue';
 import User from '@/models/modules/user';
+import Token from '@/models/modules/token.ts'
+import { ElMessage } from 'element-plus'
 // import { fetchUserInfo, login as apiLogin, logout as apiLogout } from '@/api/user';
 // import { useToast } from 'vue-toastification';
 // import router from '@/router';
 
 export const useUserStore = defineStore('user', () => {
   // 状态管理
-  const user = ref<User | null>(null);
+  const user = ref<User>(new User());
   const loading = ref<boolean>(false);
   const error = ref<string | null>(null);
+  const token = ref<Token | null>(null)
 
   // 从本地存储恢复用户状态
   const initUser = localStorage.getItem('user');
@@ -29,6 +32,13 @@ export const useUserStore = defineStore('user', () => {
       localStorage.removeItem('user');
     }
   }, { deep: true });
+  watch(token, (newToken) => {
+    if (newToken) {
+      localStorage.setItem('token', JSON.stringify(newToken));
+    } else {
+      localStorage.removeItem('token');
+    }
+  })
 
   // 获取用户信息
   const fetchUser = async () => {
@@ -49,12 +59,31 @@ export const useUserStore = defineStore('user', () => {
   };
 
   // 用户登录
+// 用户注册
+const register = async (email: string, password: string) => {
+  loading.value = true;
+  try {
+    const res = await User.regist(email, password);
+    user.value = new User(res.user);
+    token.value = new Token(res.token);
+    ElMessage.success('注册成功');
+    return true;
+  } catch (err: any) {
+    ElMessage.error('注册失败，请重试');
+    return false;
+  } finally {
+    loading.value = false;
+  }
+}
+
+// 用户登录
   const login = async (email: string, password: string) => {
     loading.value = true;
     try {
       const res = await await User.login(email, password);
       console.log(res)
-      user.value = new User(res)
+      user.value = new User(res.user)
+      token.value = new Token(res.token)
       return true
     } catch (err: any) {
       return false
@@ -62,7 +91,7 @@ export const useUserStore = defineStore('user', () => {
       loading.value = false
     }
 
-    return res
+    // return res
   }
   // const login = async (credentials: { username: string; password: string }) => {
     // loading.value = true;
@@ -139,6 +168,7 @@ export const useUserStore = defineStore('user', () => {
   // const userId = computed(() => user.value?.id || null);
 
   return {
+    register,
     user,
     loading,
     error,
