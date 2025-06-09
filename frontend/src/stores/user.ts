@@ -59,22 +59,22 @@ export const useUserStore = defineStore('user', () => {
   };
 
   // 用户登录
-// 用户注册
-const register = async (email: string, password: string) => {
-  loading.value = true;
-  try {
-    const res = await User.regist(email, password);
-    user.value = new User(res.user);
-    token.value = new Token(res.token);
-    ElMessage.success('注册成功');
-    return true;
-  } catch (err: any) {
-    ElMessage.error('注册失败，请重试');
-    return false;
-  } finally {
-    loading.value = false;
+  // 用户注册
+  const register = async (email: string, password: string) => {
+    loading.value = true;
+    try {
+      const res = await User.regist(email, password);
+      user.value = new User(res.user);
+      token.value = new Token(res.token);
+      ElMessage.success('注册成功');
+      return true;
+    } catch (err: any) {
+      ElMessage.error('注册失败，请重试');
+      return false;
+    } finally {
+      loading.value = false;
+    }
   }
-}
 
 // 用户登录
   const login = async (email: string, password: string) => {

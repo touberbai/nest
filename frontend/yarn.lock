@@ -192,6 +192,22 @@
     "@floating-ui/core" "^1.6.0"
     "@floating-ui/utils" "^0.2.9"
 
+"@floating-ui/react-dom@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.npmmirror.com/@floating-ui/react-dom/-/react-dom-2.1.3.tgz#1dea32e59514a67d182f0c89c8975ff959774b61"
+  integrity sha512-huMBfiU9UnQ2oBwIhgzyIiSpVgvlDstU8CX0AF+wS+KzmYMs0J2a3GwuFHV1Lz+jlrQGeC1fF+Nv0QoumyV0bA==
+  dependencies:
+    "@floating-ui/dom" "^1.0.0"
+
+"@floating-ui/react@^0.27.12":
+  version "0.27.12"
+  resolved "https://registry.npmmirror.com/@floating-ui/react/-/react-0.27.12.tgz#f1ddb43f50aa354a54de621272c44fff51444b51"
+  integrity sha512-kKlWNrpIQxF1B/a2MZvE0/uyKby4960yjO91W7nVyNKmmfNi62xU9HCjL1M1eWzx/LFj/VPSwJVbwQk9Pq/68A==
+  dependencies:
+    "@floating-ui/react-dom" "^2.1.3"
+    "@floating-ui/utils" "^0.2.9"
+    tabbable "^6.0.0"
+
 "@floating-ui/utils@^0.2.9":
   version "0.2.9"
   resolved "https://registry.npmmirror.com/@floating-ui/utils/-/utils-0.2.9.tgz#50dea3616bc8191fb8e112283b49eaff03e78429"
@@ -201,6 +217,16 @@
   version "1.5.0"
   resolved "https://registry.npmmirror.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.5.0.tgz#3188bcb273a414b0d215fd22a58540b989b9409a"
   integrity sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==
+
+"@mdi/font@^7.4.47":
+  version "7.4.47"
+  resolved "https://registry.npmmirror.com/@mdi/font/-/font-7.4.47.tgz#2ae522867da3a5c88b738d54b403eb91471903af"
+  integrity sha512-43MtGpd585SNzHZPcYowu/84Vz2a2g31TvPMTm9uTiCSWzaheQySUcSyUH/46fPnuPQWof2yd0pGBtzee/IQWw==
+
+"@mdi/js@^7.4.47":
+  version "7.4.47"
+  resolved "https://registry.npmmirror.com/@mdi/js/-/js-7.4.47.tgz#7d8a4edc9631bffeed80d1ec784f9beae559a76a"
+  integrity sha512-KPnNOtm5i2pMabqZxpUz7iQf+mfrYZyKCZ8QNz85czgEt7cuHcGorWfdzUMWYA0SD+a6Hn4FmJ+YhzzzjkTZrQ==
 
 "@parcel/watcher-android-arm64@2.5.1":
   version "2.5.1"
@@ -290,6 +316,11 @@
     "@parcel/watcher-win32-arm64" "2.5.1"
     "@parcel/watcher-win32-ia32" "2.5.1"
     "@parcel/watcher-win32-x64" "2.5.1"
+
+"@popperjs/core@^2.9.0":
+  version "2.11.8"
+  resolved "https://registry.npmmirror.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
+  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
 "@popperjs/core@npm:@sxzz/popperjs-es@^2.11.7":
   version "2.11.7"
@@ -401,7 +432,7 @@
   resolved "https://registry.npmmirror.com/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.40.1.tgz#8078b71fe0d5825dcbf83d52a7dc858b39da165c"
   integrity sha512-ECyOuDeH3C1I8jH2MK1RtBJW+YPMvSfT0a5NN0nHfQYnDSJ6tUiZH3gzwVP5/Kfh/+Tt7tpWVF9LXNTnhTJ3kA==
 
-"@tiptap/core@3.0.0-beta.6":
+"@tiptap/core@3.0.0-beta.6", "@tiptap/core@^3.0.0-beta.6":
   version "3.0.0-beta.6"
   resolved "https://registry.npmmirror.com/@tiptap/core/-/core-3.0.0-beta.6.tgz#9c1b0f315b976690b6881b3df46261c77b7320c7"
   integrity sha512-ISi4a4chwJ/jlMwIKm+wm4U/wdoqllHdF8QdFzz1ZM2r5c0ZoF0jhcKyagWmR2Florn+hROYfgyvqT+oUYrJ8w==
@@ -422,6 +453,13 @@
   integrity sha512-C20K4/VPOFD4wvY7G3Vu2lHX5hsrkca/La3eJOtWTqJgIu4GDQPH/1Ly+EfY+NIeEcCJXaMEOjuXEW42NlGz8w==
   dependencies:
     "@floating-ui/dom" "^1.0.0"
+
+"@tiptap/extension-bubble-menu@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.npmmirror.com/@tiptap/extension-bubble-menu/-/extension-bubble-menu-2.13.0.tgz#4ad8e4ccc45c8e7a90e7f04e099f2c23aa214a99"
+  integrity sha512-y2PRg7YT8Km1e4+xEvXcKTPfEu/i44eKNjbsKojgs70kuONdhFmhWIXCeGEVAwPH8ZPH+JPam5kcW2vsihoayg==
+  dependencies:
+    tippy.js "^6.3.7"
 
 "@tiptap/extension-bullet-list@3.0.0-beta.6":
   version "3.0.0-beta.6"
@@ -463,6 +501,13 @@
   resolved "https://registry.npmmirror.com/@tiptap/extension-floating-menu/-/extension-floating-menu-3.0.0-beta.6.tgz#5e9258583827b8d14f831dc439a109374ccdfc15"
   integrity sha512-sQXDnTKbqTPm9r2zoWTNt6NKGlSPBqWa4r36ad1Hzf531l1XOpP9rmXvcyjq230zlzMme+FgE7l1x4Boah5qhg==
 
+"@tiptap/extension-floating-menu@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.npmmirror.com/@tiptap/extension-floating-menu/-/extension-floating-menu-2.13.0.tgz#f9a3f785b1750b5814296a7c6d085d56d938184f"
+  integrity sha512-gF14Nu61QUWWJDxOxzB679uK0W/rWcU7FTn1ll2zGt3NW2P2HheLo6qL1U5Wwxo3YwXloM8KLofdWi6vMN5RQQ==
+  dependencies:
+    tippy.js "^6.3.7"
+
 "@tiptap/extension-gapcursor@3.0.0-beta.6":
   version "3.0.0-beta.6"
   resolved "https://registry.npmmirror.com/@tiptap/extension-gapcursor/-/extension-gapcursor-3.0.0-beta.6.tgz#b06fef9ffe557340176ad05d8d7e589de792ec93"
@@ -473,7 +518,7 @@
   resolved "https://registry.npmmirror.com/@tiptap/extension-hard-break/-/extension-hard-break-3.0.0-beta.6.tgz#d2fffb928c0d783ef3914d985b34575661dd9c7b"
   integrity sha512-96+OjOZVZM8OUuM9p+D4tWINZyZ24ZoqD1m6oWmK6096uc6AKRlRJFpUJbJhjtOJ5XdKO851FpHN7YNPnfpEsA==
 
-"@tiptap/extension-heading@3.0.0-beta.6":
+"@tiptap/extension-heading@3.0.0-beta.6", "@tiptap/extension-heading@^3.0.0-beta.6":
   version "3.0.0-beta.6"
   resolved "https://registry.npmmirror.com/@tiptap/extension-heading/-/extension-heading-3.0.0-beta.6.tgz#888689cc4791f2fc43c78b682b17c1e523b29939"
   integrity sha512-r9a77M/WifQ+6vtSl270zzuftQiGbOOg56fhbaXcC/G7cJAC2EA1kVj+/Yw4/rNBY847w+4OnyE+4lTJsSFK3w==
@@ -560,7 +605,7 @@
   resolved "https://registry.npmmirror.com/@tiptap/extensions/-/extensions-3.0.0-beta.6.tgz#f976eb1ca0ef018e91045d2b3dc35103a56b29a9"
   integrity sha512-syBewTiKmFwzsUn0Pu/Ktss276paw0ZnUCcw67HvMkZECA18usg525TYt/SVuaiZ5DleNcvrkBOkTqvLcMVQ+w==
 
-"@tiptap/pm@3.0.0-beta.6", "@tiptap/pm@^3.0.0-beta.6":
+"@tiptap/pm@3.0.0-beta.6":
   version "3.0.0-beta.6"
   resolved "https://registry.npmmirror.com/@tiptap/pm/-/pm-3.0.0-beta.6.tgz#2a42c2a834e5c4a7abaa03d817b322c4a96c3bff"
   integrity sha512-0df/6qDZPXvycR2V9PM51tkKpJyZJX+SzKSEWLPNpboOvZae5cG2dIWbhF2OAypT5uz5aY16MZIDldd5On1bfg==
@@ -583,6 +628,41 @@
     prosemirror-trailing-node "^3.0.0"
     prosemirror-transform "^1.10.2"
     prosemirror-view "^1.38.1"
+
+"@tiptap/pm@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.npmmirror.com/@tiptap/pm/-/pm-2.13.0.tgz#a635940264f07898ec8c59afff7ffe3d8989379b"
+  integrity sha512-CU2DEMQbYXwlnISFD0+7nQSBaqGKJHOiTnWpnAi5pOVphroEIbLPlT6AO4638MWtIR9QsOmGR8KXkQmNGA6tjQ==
+  dependencies:
+    prosemirror-changeset "^2.3.0"
+    prosemirror-collab "^1.3.1"
+    prosemirror-commands "^1.6.2"
+    prosemirror-dropcursor "^1.8.1"
+    prosemirror-gapcursor "^1.3.2"
+    prosemirror-history "^1.4.1"
+    prosemirror-inputrules "^1.4.0"
+    prosemirror-keymap "^1.2.2"
+    prosemirror-markdown "^1.13.1"
+    prosemirror-menu "^1.2.4"
+    prosemirror-model "^1.23.0"
+    prosemirror-schema-basic "^1.2.3"
+    prosemirror-schema-list "^1.4.1"
+    prosemirror-state "^1.4.3"
+    prosemirror-tables "^1.6.4"
+    prosemirror-trailing-node "^3.0.0"
+    prosemirror-transform "^1.10.2"
+    prosemirror-view "^1.37.0"
+
+"@tiptap/react@^2.13.0":
+  version "2.13.0"
+  resolved "https://registry.npmmirror.com/@tiptap/react/-/react-2.13.0.tgz#88c530b3730d9ffe0059cda93334773c5e1df712"
+  integrity sha512-HxA9M2PdzOszIvv5NG2MNcp7bk+bGUB+sJsUcT7X5fDRSoSn94aBKQ677BONHCV6YHHSY3wLxOtuiNXnO3kkDQ==
+  dependencies:
+    "@tiptap/extension-bubble-menu" "^2.13.0"
+    "@tiptap/extension-floating-menu" "^2.13.0"
+    "@types/use-sync-external-store" "^0.0.6"
+    fast-deep-equal "^3"
+    use-sync-external-store "^1"
 
 "@tiptap/starter-kit@^3.0.0-beta.6":
   version "3.0.0-beta.6"
@@ -656,6 +736,11 @@
   version "2.0.0"
   resolved "https://registry.npmmirror.com/@types/mdurl/-/mdurl-2.0.0.tgz#d43878b5b20222682163ae6f897b20447233bdfd"
   integrity sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg==
+
+"@types/use-sync-external-store@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.npmmirror.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.6.tgz#60be8d21baab8c305132eb9cb912ed497852aadc"
+  integrity sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==
 
 "@types/web-bluetooth@^0.0.16":
   version "0.0.16"
@@ -1153,6 +1238,11 @@ exsolve@^1.0.1:
   resolved "https://registry.npmmirror.com/exsolve/-/exsolve-1.0.5.tgz#1f5b6b4fe82ad6b28a173ccb955a635d77859dcf"
   integrity sha512-pz5dvkYYKQ1AHVrgOzBKWeP4u4FRb3a6DNK2ucr0OoNwYIU4QWsJ+NM36LLzORT+z845MzKHHhpXiUF5nvQoJg==
 
+fast-deep-equal@^3:
+  version "3.1.3"
+  resolved "https://registry.npmmirror.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
+  integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
+
 fdir@^6.4.4:
   version "6.4.4"
   resolved "https://registry.npmmirror.com/fdir/-/fdir-6.4.4.tgz#1cfcf86f875a883e19a8fab53622cfe992e8d2f9"
@@ -1606,7 +1696,7 @@ prosemirror-menu@^1.2.4:
     prosemirror-history "^1.0.0"
     prosemirror-state "^1.0.0"
 
-prosemirror-model@^1.0.0, prosemirror-model@^1.20.0, prosemirror-model@^1.21.0, prosemirror-model@^1.24.1, prosemirror-model@^1.25.0:
+prosemirror-model@^1.0.0, prosemirror-model@^1.20.0, prosemirror-model@^1.21.0, prosemirror-model@^1.23.0, prosemirror-model@^1.24.1, prosemirror-model@^1.25.0:
   version "1.25.1"
   resolved "https://registry.npmmirror.com/prosemirror-model/-/prosemirror-model-1.25.1.tgz#aeae9f1ec79fcaa76f6fc619800d91fbcf726870"
   integrity sha512-AUvbm7qqmpZa5d9fPKMvH1Q5bqYQvAZWOGRvxsB6iFLyycvC9MwNemNVjHVrWgjaoxAfY8XVg7DbvQ/qxvI9Eg==
@@ -1620,7 +1710,7 @@ prosemirror-schema-basic@^1.2.3:
   dependencies:
     prosemirror-model "^1.25.0"
 
-prosemirror-schema-list@^1.5.0:
+prosemirror-schema-list@^1.4.1, prosemirror-schema-list@^1.5.0:
   version "1.5.1"
   resolved "https://registry.npmmirror.com/prosemirror-schema-list/-/prosemirror-schema-list-1.5.1.tgz#5869c8f749e8745c394548bb11820b0feb1e32f5"
   integrity sha512-927lFx/uwyQaGwJxLWCZRkjXG0p48KpMj6ueoYiu4JX05GGuGcgzAy62dfiV8eFZftgyBUvLx76RsMe20fJl+Q==
@@ -1664,7 +1754,7 @@ prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0, prosemirror-transfor
   dependencies:
     prosemirror-model "^1.21.0"
 
-prosemirror-view@^1.0.0, prosemirror-view@^1.1.0, prosemirror-view@^1.27.0, prosemirror-view@^1.31.0, prosemirror-view@^1.38.1, prosemirror-view@^1.39.1:
+prosemirror-view@^1.0.0, prosemirror-view@^1.1.0, prosemirror-view@^1.27.0, prosemirror-view@^1.31.0, prosemirror-view@^1.37.0, prosemirror-view@^1.38.1, prosemirror-view@^1.39.1:
   version "1.40.0"
   resolved "https://registry.npmmirror.com/prosemirror-view/-/prosemirror-view-1.40.0.tgz#212e627a0c4f0198ac9823a1232e0099c9a92865"
   integrity sha512-2G3svX0Cr1sJjkD/DYWSe3cfV5VPVTBOxI9XQEGWJDFEpsZb/gh4MV29ctv+OJx2RFX4BLt09i+6zaGM/ldkCw==
@@ -1779,6 +1869,11 @@ superjson@^2.2.2:
   dependencies:
     copy-anything "^3.0.2"
 
+tabbable@^6.0.0:
+  version "6.2.0"
+  resolved "https://registry.npmmirror.com/tabbable/-/tabbable-6.2.0.tgz#732fb62bc0175cfcec257330be187dcfba1f3b97"
+  integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
+
 tinyglobby@^0.2.12, tinyglobby@^0.2.13:
   version "0.2.13"
   resolved "https://registry.npmmirror.com/tinyglobby/-/tinyglobby-0.2.13.tgz#a0e46515ce6cbcd65331537e57484af5a7b2ff7e"
@@ -1786,6 +1881,13 @@ tinyglobby@^0.2.12, tinyglobby@^0.2.13:
   dependencies:
     fdir "^6.4.4"
     picomatch "^4.0.2"
+
+tippy.js@^6.3.7:
+  version "6.3.7"
+  resolved "https://registry.npmmirror.com/tippy.js/-/tippy.js-6.3.7.tgz#8ccfb651d642010ed9a32ff29b0e9e19c5b8c61c"
+  integrity sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==
+  dependencies:
+    "@popperjs/core" "^2.9.0"
 
 to-regex-range@^5.0.1:
   version "5.0.1"
@@ -1876,6 +1978,11 @@ upath@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmmirror.com/upath/-/upath-2.0.1.tgz#50c73dea68d6f6b990f51d279ce6081665d61a8b"
   integrity sha512-1uEe95xksV1O0CYKXo8vQvN1JEbtJp7lb7C5U9HMsIp6IVwntkH/oNUzyVNQSd4S1sYk2FpSSW44FqMc8qee5w==
+
+use-sync-external-store@^1:
+  version "1.5.0"
+  resolved "https://registry.npmmirror.com/use-sync-external-store/-/use-sync-external-store-1.5.0.tgz#55122e2a3edd2a6c106174c27485e0fd59bcfca0"
+  integrity sha512-Rb46I4cGGVBmjamjphe8L/UnvJD+uPPtTkNvX5mZgqdbavhI4EbgIWJiIHXJ8bc/i9EQGPRh4DwEURJ552Do0A==
 
 vite-plugin-vuetify@^2.1.1:
   version "2.1.1"

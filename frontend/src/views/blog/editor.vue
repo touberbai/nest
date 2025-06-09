@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { useEditor, EditorContent, Editor } from '@tiptap/vue-3'
+import { EditorContent, Editor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Highlight from '@tiptap/extension-highlight'
-import Code from '@tiptap/extension-code'
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
+// import Code from '@tiptap/extension-code'
+// import Document from '@tiptap/extension-document'
+// import Paragraph from '@tiptap/extension-paragraph'
+// import Text from '@tiptap/extension-text'
 import Typography from '@tiptap/extension-typography'
 import { ref, onBeforeUnmount, onMounted } from 'vue'
 import { ColorHighlighter } from '@/plugins/tiptap/ColorHighlighter.ts'
 import { SmilieReplacer } from '@/plugins/tiptap/SmilieReplacer.ts'
+import EditorHeaderMenu from '@/views/blog/modules/header_menu.vue'
+import { useEditorStore } from '@/stores/editor.ts'
+const editorStore = useEditorStore()
 
 const editor = ref<Editor>()
 
@@ -41,48 +44,52 @@ const editor = ref<Editor>()
 onMounted(() => {
   editor.value = (new Editor({
     extensions: [
-    StarterKit,
-    Highlight,
-    Typography,
-    Code,
-    Document,
-    Paragraph,
-    Text,
-    ColorHighlighter,
-    SmilieReplacer,
-  ],
-  content: `
-    <p>
-      → With the Typography extension, Tiptap understands »what you mean« and adds correct characters to your text — it’s like a “typography nerd” on your side.
-    </p>
-    <p>
-      Try it out and type <code>(c)</code>, <code>-></code>, <code>>></code>, <code>1/2</code>, <code>!=</code>, <code>--</code> or <code>1x1</code> here:
-    </p>
-    <p></p>
-    <p>
-      Or add completely custom input rules. We added a custom extension here that replaces smilies like <code>:-)</code>, <code><3</code> or <code>>:P</code> with emojis. Try it out:
-    </p>
-    <p></p>
-    <p>
-      You can also teach the editor new things. For example to recognize hex colors and add a color swatch on the fly: #FFF, #0D0D0D, #616161, #A975FF, #FB5151, #FD9170, #FFCB6B, #68CEF8, #80cbc4, #9DEF8F
-    </p>
-    <p>
-      Markdown shortcuts make it easy to format the text while typing.
-    </p>
-    <p>
-      To test that, start a new line and type <code>#</code> followed by a space to get a heading. Try <code>#</code>, <code>##</code>, <code>###</code>, <code>####</code>, <code>#####</code>, <code>######</code> for different levels.
-    </p>
-    <p>
-      Those conventions are called input rules in Tiptap. Some of them are enabled by default. Try <code>></code> for blockquotes, <code>*</code>, <code>-</code> or <code>+</code> for bullet lists, or <code>\`foobar\`</code> to highlight code, <code>~~tildes~~</code> to strike text, or <code>==equal signs==</code> to highlight text.
-    </p>
-    <p>
-      You can overwrite existing input rules or add your own to nodes, marks and extensions.
-    </p>
-    <p>
-      For example, we added the <code>Typography</code> extension here. Try typing <code>(c)</code> to see how it’s converted to a proper © character. You can also try <code>-></code>, <code>>></code>, <code>1/2</code>, <code>!=</code>, or <code>--</code>.
-    </p>
-  `,
+      StarterKit,
+      Highlight,
+      Typography,
+      // Code,
+      // Document,
+      // Paragraph,
+      // Text,
+      ColorHighlighter,
+      SmilieReplacer,
+    ],
+    // editable: false,
+    content: `
+      <p>
+        → With the Typography extension, Tiptap understands »what you mean« and adds correct characters to your text — it’s like a “typography nerd” on your side.
+      </p>
+      <p>
+        Try it out and type <code>(c)</code>, <code>-></code>, <code>>></code>, <code>1/2</code>, <code>!=</code>, <code>--</code> or <code>1x1</code> here:
+      </p>
+      <p></p>
+      <p>
+        Or add completely custom input rules. We added a custom extension here that replaces smilies like <code>:-)</code>, <code><3</code> or <code>>:P</code> with emojis. Try it out:
+      </p>
+      <p></p>
+      <p>
+        You can also teach the editor new things. For example to recognize hex colors and add a color swatch on the fly: #FFF, #0D0D0D, #616161, #A975FF, #FB5151, #FD9170, #FFCB6B, #68CEF8, #80cbc4, #9DEF8F
+      </p>
+      <p>
+        Markdown shortcuts make it easy to format the text while typing.
+      </p>
+      <p>
+        To test that, start a new line and type <code>#</code> followed by a space to get a heading. Try <code>#</code>, <code>##</code>, <code>###</code>, <code>####</code>, <code>#####</code>, <code>######</code> for different levels.
+      </p>
+      <p>
+        Those conventions are called input rules in Tiptap. Some of them are enabled by default. Try <code>></code> for blockquotes, <code>*</code>, <code>-</code> or <code>+</code> for bullet lists, or <code>\`foobar\`</code> to highlight code, <code>~~tildes~~</code> to strike text, or <code>==equal signs==</code> to highlight text.
+      </p>
+      <p>
+        You can overwrite existing input rules or add your own to nodes, marks and extensions.
+      </p>
+      <p>
+        For example, we added the <code>Typography</code> extension here. Try typing <code>(c)</code> to see how it’s converted to a proper © character. You can also try <code>-></code>, <code>>></code>, <code>1/2</code>, <code>!=</code>, or <code>--</code>.
+      </p>
+    `,
   }))
+
+  editorStore.setEditor(editor.value)
+
 })
 
 onBeforeUnmount(() => {
@@ -96,25 +103,32 @@ onBeforeUnmount(() => {
 <div
   class="blog_editor"
 >
+  <EditorHeaderMenu
+    v-if="editor"
+    class="editor_header_menu"
+    :editor="editor"
+  ></EditorHeaderMenu>
   <editor-content
     :editor="editor"
+    class="ProseMirror-focused"
   />
 </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.blog_editor {
+  .editor_header_menu {
+    width: 100%;
+    padding: 0 20px;
+  }
+}
 
 </style>
 
 <style lang="scss">
 .tiptap {
-  /**
-  自定义样式
-   */
-  &.ProseMirror-focused {
-    border-color: red!important;
-    background-color: yellow!important;
-  }
+  outline: none;
+
   :first-child {
     margin-top: 0;
   }
