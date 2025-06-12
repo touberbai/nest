@@ -11,35 +11,12 @@ import { ref, onBeforeUnmount, onMounted } from 'vue'
 import { ColorHighlighter } from '@/plugins/tiptap/ColorHighlighter.ts'
 import { SmilieReplacer } from '@/plugins/tiptap/SmilieReplacer.ts'
 import EditorHeaderMenu from '@/views/blog/modules/header_menu.vue'
+import BlogPost from '@/models/modules/blog/post.ts'
 import { useEditorStore } from '@/stores/editor.ts'
 const editorStore = useEditorStore()
 
 const editor = ref<Editor>()
-
-// const editor = useEditor({
-//   extensions: [
-//     StarterKit,
-//     Highlight,
-//     Typography,
-//   ],
-//   content: `
-//         <p>
-//           Markdown shortcuts make it easy to format the text while typing.
-//         </p>
-//         <p>
-//           To test that, start a new line and type <code>#</code> followed by a space to get a heading. Try <code>#</code>, <code>##</code>, <code>###</code>, <code>####</code>, <code>#####</code>, <code>######</code> for different levels.
-//         </p>
-//         <p>
-//           Those conventions are called input rules in Tiptap. Some of them are enabled by default. Try <code>></code> for blockquotes, <code>*</code>, <code>-</code> or <code>+</code> for bullet lists, or <code>\`foobar\`</code> to highlight code, <code>~~tildes~~</code> to strike text, or <code>==equal signs==</code> to highlight text.
-//         </p>
-//         <p>
-//           You can overwrite existing input rules or add your own to nodes, marks and extensions.
-//         </p>
-//         <p>
-//           For example, we added the <code>Typography</code> extension here. Try typing <code>(c)</code> to see how it’s converted to a proper © character. You can also try <code>-></code>, <code>>></code>, <code>1/2</code>, <code>!=</code>, or <code>--</code>.
-//         </p>
-//       `,
-// })
+const title = ref()
 
 onMounted(() => {
   editor.value = (new Editor({
@@ -95,14 +72,58 @@ onMounted(() => {
 onBeforeUnmount(() => {
   if (editor.value) {
     editor.value.destroy()
+    editorStore.setEditor(null)
   }
 })
+
+const save = async () => {
+  if (!editor.value) {
+    return
+  }
+  await BlogPost.create({
+    title: title.value,
+    content: JSON.stringify(editor.value.getJSON()),
+  })
+}
 </script>
 
 <template>
 <div
   class="blog_editor"
 >
+  <div
+    class="title_wrapper d-flex justify-space-between"
+  >
+    <div
+      class="title_group"
+    >
+      <v-text-field
+        v-model="title"
+        label="Title"
+        type="text"
+        placeholder="input title"
+        bg-color="#fff"
+        variant="underlined"
+      ></v-text-field>
+    </div>
+    <div
+      class="function_group d-flex align-center flex-shrink-0"
+    >
+      <v-btn
+        class="btn"
+        color="grey"
+      >
+        save
+      </v-btn>
+      <v-btn
+        class="btn"
+        color="primary"
+        @click="save"
+      >
+        send
+      </v-btn>
+    </div>
+  </div>
   <EditorHeaderMenu
     v-if="editor"
     class="editor_header_menu"
@@ -120,6 +141,19 @@ onBeforeUnmount(() => {
   .editor_header_menu {
     width: 100%;
     padding: 0 20px;
+  }
+  .title_wrapper {
+    width: 100%;
+    .title_group {
+      width: 100%;
+      //max-width: 1200px;
+    }
+    .function_group {
+      padding-right: 5px;
+      .btn {
+        margin-left: 5px;
+      }
+    }
   }
 }
 

@@ -7,7 +7,7 @@ import { ref } from 'vue'
 export const useEditorStore = defineStore('editor', () => {
   const editor = ref<Editor | null>(null)
 
-  const setEditor = (newEditor: Editor) => {
+  const setEditor = (newEditor: Editor | null) => {
     editor.value = newEditor
   }
 

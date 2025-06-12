@@ -21,12 +21,12 @@ class BlogCategory(BlogCategoryCreate):
 class BlogPostCreate(BaseModel):
     title: str
     content: str
-    category_id: int
+    # category_id: int
 
 # 博客文章返回给前端的响应模型
 class BlogPost(BlogPostCreate):
     id: int
-    created_at: Optional[datetime]
+    # created_at: Optional[datetime]
 
     class Config:
         from_attributes = True

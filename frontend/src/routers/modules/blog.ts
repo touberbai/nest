@@ -13,7 +13,10 @@ const BlogRouter = [
       {
         path: 'editor',
         name: 'BlogEditor',
-        component: () => import('@/views/blog/editor.vue')
+        component: () => import('@/views/blog/editor.vue'),
+        meta: {
+          hideNavigation: true,
+        }
       },
     ]
   }

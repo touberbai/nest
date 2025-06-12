@@ -20,7 +20,11 @@ def get_blog_posts(db: Session, skip: int = 0, limit: int = 100):
 
 # 创建文章
 def create_blog_post(db: Session, post: BlogPostCreate):
-    db_post = BlogPost(title=post.title, content=post.content, category_id=post.category_id)
+    db_post = BlogPost(
+        title=post.title,
+        content=post.content,
+        # category_id=post.category_id
+    )
     db.add(db_post)
     db.commit()
     db.refresh(db_post)
