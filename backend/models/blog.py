@@ -22,38 +22,38 @@ class BlogPost(Base):
     content = Column(Text)
 
     # 关联分类
-    # category_id = Column(Integer, ForeignKey("blog_categories.id"))
-    # category = relationship("BlogCategory", back_populates="posts")
+    category_id = Column(Integer, ForeignKey("blog_categories.id"), nullable=True)
+    category = relationship("BlogCategory", back_populates="posts")
     #
     # # 关联评论
-    # comments = relationship("BlogComment", back_populates="post")
+    comments = relationship("BlogComment", back_populates="post")
     #
     # # 关联点赞
-    # likes = relationship("BlogLike", back_populates="post")
+    likes = relationship("BlogLike", back_populates="post")
     #
     # # 创建者
-    # # created_by = Column(Integer, ForeignKey("users.id"))
-    # created_at = Column(DateTime, default=datetime.now)
-    # updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    created_by = Column(Integer, ForeignKey("users.id"))
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     #
     # # 关联用户
-    # created_user = relationship("User", back_populates="posts")
+    created_user = relationship("User", back_populates="posts")
 
 # 博客评论表
 class BlogComment(Base):
     __tablename__ = "blog_comments"
 
     id = Column(Integer, primary_key=True, index=True)
-    post_id = Column(Integer, ForeignKey("blog_posts.id"))
+    post_id = Column(Integer, ForeignKey("blog_posts.id"), nullable=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     content = Column(Text)
     created_at = Column(DateTime, default=datetime.now)
 
     # # 关联文章
-    # post = relationship("BlogPost", back_populates="comments")
+    post = relationship("BlogPost", back_populates="comments")
     #
     # # 关联用户
-    # user = relationship("User", backref="blog_comments")
+    user = relationship("User", backref="blog_comments")
     
 
 # 博客点赞表
@@ -66,7 +66,7 @@ class BlogLike(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     # # 关联文章
-    # post = relationship("BlogPost", back_populates="likes")
+    post = relationship("BlogPost", back_populates="likes")
     #
     # # 关联用户
-    # user = relationship("User", backref="blog_likes")
+    user = relationship("User", backref="blog_likes")

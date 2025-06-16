@@ -22,6 +22,7 @@ class BlogPostCreate(BaseModel):
     title: str
     content: str
     # category_id: int
+    category_id: Optional[int] = None
 
 # 博客文章返回给前端的响应模型
 class BlogPost(BlogPostCreate):
