@@ -3,4 +3,7 @@ sqlalchemy==2.0.41
 pymysql==1.1.0
 passlib[bcrypt]==1.7.4
 python-jose[cryptography]==3.3.0
+requests==2.31.0  # 添加这一行
+uvicorn
+TA-Lib
 # smtplib  # 用于发送邮件

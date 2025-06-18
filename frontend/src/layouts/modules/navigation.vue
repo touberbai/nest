@@ -48,6 +48,11 @@ const {
 
 <style scoped>
 .layouts_modules_navigation {
+  position: sticky;
+  z-index: 9;
+  width: 100%;
+  top: 0;
+  left: 0;
   background-color: rgba(250, 250, 250, 0.7);
   height: 60px;
   color: #333;

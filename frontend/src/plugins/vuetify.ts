@@ -10,5 +10,17 @@ export default createVuetify({
   directives, // 自动导入使用到的指令
   icons: {
     defaultSet: 'mdi',
+  },
+  locale: {
+    // locale: 'zh-Hans',
+  },
+  date: {
+    locale: {
+      en: 'zh-Hans',
+    }
+    // adapter: DateFnsAdapter,
+    // locale: {
+    //   zhHans: zhCN,
+    // }
   }
 })

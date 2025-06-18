@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/components/HelloWorld.vue'
 import FullPageRouter from '@/routers/modules/full_page.ts'
 import BlogRouter from '@/routers/modules/blog.ts'
+import BasicRouter from '@/routers/basic.ts'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +14,7 @@ const router = createRouter({
     },
     ...FullPageRouter,
     ...BlogRouter,
+    ...BasicRouter,
 
     // {
     //   path: '/about',
