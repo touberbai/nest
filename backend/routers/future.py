@@ -529,11 +529,24 @@ def update_all_futures_data():
                         print(f"正在获取合约 {symbol} 的日线数据...")
                         daily_data = ak.futures_zh_daily_sina(symbol=symbol)
                         
+                        
+                        
                         # 验证数据有效性
                         if daily_data is None or daily_data.empty:
                             print(f"合约 {symbol} 日线数据为空")
                             continue
                             
+                        # 为daily_data 添加'symbol' 列
+                        daily_data['symbol'] = symbol
+                            
+                        # 打印列名以进行调试
+                        print("daily_data 列名:", daily_data.columns)
+                        print("spot_data 列名:", spot_data.columns)
+                        
+                        # 检查 symbol 列是否存在
+                        if 'symbol' not in daily_data.columns or 'symbol' not in spot_data.columns:
+                            raise ValueError("daily_data 或 spot_data 中不存在 'symbol' 列")
+                        
                         # 将 contract_cache['spot_data']中对应的数据和daily_data合并
                         if 'spot_data' in contract_cache:
                             spot_data = pd.DataFrame(contract_cache['spot_data'])
